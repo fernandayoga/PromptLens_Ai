@@ -73,10 +73,6 @@ export default function App() {
     downloadPrompt(result.prompt)
   }
 
-  function handleClearResult() {
-    reset()
-  }
-
   const isAnalyzing = status === 'ANALYZING'
   const showGenerator =
     status !== 'EMPTY' || !!image.dataUrl
@@ -125,7 +121,6 @@ export default function App() {
                   file={image.file}
                   dataUrl={image.dataUrl}
                   onRemove={handleRemoveImage}
-                  onReplace={handleFileSelect}
                   disabled={isAnalyzing}
                 />
                 <PromptSettings
@@ -157,8 +152,6 @@ export default function App() {
                       onCopy={handleCopy}
                       onDownload={handleDownload}
                       onRegenerate={handleRegenerate}
-                      onClear={handleClearResult}
-                      loading={isAnalyzing}
                     />
                     <AnalysisPanel analysis={result?.analysis || {}} />
                   </>

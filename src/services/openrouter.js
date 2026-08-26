@@ -22,9 +22,16 @@ function parseContent(raw) {
   const text = (raw || '').trim()
   if (!text) return { prompt: '', analysis: {} }
 
-  const jsonStart = text.indexOf('{')
+  // strip markdown code block if present
+  let cleaned = text
+  const codeBlockMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i)
+  if (codeBlockMatch) {
+    cleaned = codeBlockMatch[1].trim()
+  }
+
+  const jsonStart = cleaned.indexOf('{')
   if (jsonStart !== -1) {
-    const jsonCandidate = text.slice(jsonStart)
+    const jsonCandidate = cleaned.slice(jsonStart)
     try {
       const data = JSON.parse(jsonCandidate)
       if (data && typeof data === 'object') {

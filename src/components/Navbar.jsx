@@ -12,10 +12,6 @@ export default function Navbar() {
             </svg>
             <span>PromptLens AI</span>
           </a>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#how-it-works" className="text-text-muted hover:text-text transition-colors">How it works</a>
-            <a href="#about" className="text-text-muted hover:text-text transition-colors">About</a>
-          </nav>
         </div>
       </div>
     </header>

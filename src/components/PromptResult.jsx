@@ -8,7 +8,6 @@ export default function PromptResult({
   onCopy,
   onDownload,
   onRegenerate,
-  onClear,
 }) {
   const [copied, setCopied] = useState(false)
   const [toast, setToast] = useState(null)
@@ -63,12 +62,14 @@ export default function PromptResult({
           <textarea
             readOnly
             value={prompt}
-            className="w-full min-h-[140px] max-h-[320px] resize-none rounded-xl bg-surface-hover border border-border px-3 py-2.5 text-sm text-text placeholder-text-muted focus:outline-none scrollbar-thin read-only:cursor-default"
+            className="w-full min-h-[240px] max-h-[480px] resize-none rounded-xl bg-surface-hover border border-border px-3 py-2.5 text-sm text-text placeholder-text-muted focus:outline-none scrollbar-thin read-only:cursor-default"
             placeholder="Your generated prompt will appear here..."
           />
-          <div className="absolute bottom-2 right-2 text-xs text-text-muted">
+        </div>
+        <div className="mt-2 text-right">
+          <span className="text-xs text-text-muted">
             {prompt.split(' ').length} words
-          </div>
+          </span>
         </div>
       </div>
 
@@ -121,22 +122,7 @@ export default function PromptResult({
           Regenerate
         </button>
 
-        <button
-          type="button"
-          onClick={onClear}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-transparent text-sm font-medium text-text-muted hover:text-text hover:bg-surface-hover transition-colors"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M3 6h18" />
-            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-            <path d="M10 11v5" />
-            <path d="M14 11v5" />
-            <circle cx="12" cy="11" r="1" />
-            <path d="M5 6h0M19 6l-2-2h-4l-2 2H5" />
-          </svg>
-          Clear
-        </button>
-      </div>
+        </div>
 
       {toast && (
         <div className="toast fixed bottom-4 right-4 z-50 px-4 py-2.5 rounded-lg bg-text text-white text-sm shadow-lg flex items-center gap-2">

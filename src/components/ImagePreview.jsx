@@ -1,6 +1,6 @@
 import { formatFileSize } from '../utils/image.js'
 
-export default function ImagePreview({ file, dataUrl, onRemove, onReplace, disabled }) {
+export default function ImagePreview({ file, dataUrl, onRemove, disabled }) {
   if (!dataUrl) return null
 
   return (
@@ -41,15 +41,6 @@ export default function ImagePreview({ file, dataUrl, onRemove, onReplace, disab
             </button>
           ) : (
             <>
-              {onReplace && (
-                <button
-                  type="button"
-                  onClick={onReplace}
-                  className="px-3 py-1.5 text-xs text-text border border-border rounded-lg hover:bg-surface-hover transition-colors"
-                >
-                  Replace
-                </button>
-              )}
               {onRemove && (
                 <button
                   type="button"

@@ -96,7 +96,7 @@ Rules:
 - Do not promise a perfect reproduction.
 - The primary output must always be an image-generation prompt, not a caption.
 
-Respond with JSON only, using this exact shape:
+Respond with raw JSON only, using this exact shape:
 {
   "prompt": "<the image-generation prompt>",
   "analysis": {
@@ -109,6 +109,7 @@ Respond with JSON only, using this exact shape:
   }
 }
 
+Do not wrap the JSON in markdown code fences or backticks. Output the JSON object directly.
 If you cannot return strict JSON, still return the prompt as the first line after "PROMPT:" and the analysis as key-value lines.`
 }
 

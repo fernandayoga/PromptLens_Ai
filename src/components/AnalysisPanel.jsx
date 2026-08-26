@@ -48,11 +48,11 @@ export default function AnalysisPanel({ analysis = {} }) {
         </svg>
       </button>
 
-      {open && (
-        <div id="analysis-body" className="px-5 pb-5 space-y-3 animate-slide-up">
+       {open && (
+        <div id="analysis-body" className="px-5 pb-5 space-y-2 animate-slide-up">
           {items.map(({ key, label }) => (
-            <div key={key}>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-0.5">{label}</dt>
+            <div key={key} className="rounded-xl border border-border bg-surface-hover px-4 py-3">
+              <dt className="text-xs font-semibold uppercase tracking-wide text-primary mb-1">{label}</dt>
               <dd className="text-sm text-text leading-relaxed">{analysis[key]}</dd>
             </div>
           ))}
