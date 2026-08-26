@@ -10,7 +10,7 @@ export default function Footer() {
             <a href="https://openrouter.ai" target="_blank" rel="noopener noreferrer" className="hover:text-text transition-colors">
               Powered by OpenRouter
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-text transition-colors">
+            <a href="https://github.com/fernandayoga/PromptLens_Ai" target="_blank" rel="noopener noreferrer" className="hover:text-text transition-colors">
               View on GitHub
             </a>
           </div>

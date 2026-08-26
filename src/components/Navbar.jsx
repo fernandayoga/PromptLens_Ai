@@ -8,7 +8,6 @@ export default function Navbar() {
               <path d="M12 2a10 10 0 1 0 10 10" />
               <path d="M12 16v-4" />
               <path d="M12 8h.01" />
-              <circle cx="18" cy="18" r="3" />
             </svg>
             <span>PromptLens AI</span>
           </a>
