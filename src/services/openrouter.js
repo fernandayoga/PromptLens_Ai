@@ -1,21 +1,9 @@
 import { buildSystemPrompt } from '../utils/prompt.js'
 
-const API_URL = 'https://openrouter.ai/api/v1/chat/completions'
-
-export function getApiKey() {
-  return import.meta.env.VITE_OPENROUTER_API_KEY || ''
-}
+const API_URL = '/api/generate-prompt'
 
 export function getModel() {
   return import.meta.env.VITE_OPENROUTER_MODEL || 'google/gemini-2.0-flash-exp:free'
-}
-
-export function getSiteUrl() {
-  return import.meta.env.VITE_SITE_URL || window.location.origin || ''
-}
-
-export function getSiteName() {
-  return import.meta.env.VITE_SITE_NAME || 'PromptLens AI'
 }
 
 function parseContent(raw) {
@@ -52,13 +40,6 @@ function parseContent(raw) {
 }
 
 export async function generatePrompt({ dataUrl, mode, detailLevel, signal }) {
-  const apiKey = getApiKey()
-  if (!apiKey) {
-    throw new Error(
-      'OpenRouter API key is missing. Add VITE_OPENROUTER_API_KEY to your .env.local file and restart the dev server.',
-    )
-  }
-
   const systemPrompt = buildSystemPrompt(mode, detailLevel)
 
   const messages = [
@@ -79,12 +60,7 @@ export async function generatePrompt({ dataUrl, mode, detailLevel, signal }) {
   try {
     response = await fetch(API_URL, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': getSiteUrl(),
-        'X-Title': getSiteName(),
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: getModel(),
         messages,
@@ -108,11 +84,11 @@ export async function generatePrompt({ dataUrl, mode, detailLevel, signal }) {
     let detail = ''
     try {
       const body = await response.json()
-      detail = body?.error?.message || ''
+      detail = body?.error?.message || body?.error || ''
     } catch {
       /* ignore */
     }
-    throw new Error(`OpenRouter request failed (${response.status}). ${detail}`.trim())
+    throw new Error(`Request failed (${response.status}). ${detail}`.trim())
   }
 
   const data = await response.json()

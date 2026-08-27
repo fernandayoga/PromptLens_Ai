@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useImagePrompt } from './hooks/useImagePrompt.js'
 import { PROMPT_MODES, DETAIL_LEVELS, computeCompleteness, downloadPrompt } from './utils/prompt.js'
-import { validateImageFile, fileToDataUrl } from './utils/image.js'
+import { validateImageFile, fileToDataUrl, compressImage } from './utils/image.js'
 
 import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
@@ -53,14 +53,24 @@ export default function App() {
     reset()
   }
 
-  function handleGenerate() {
-    if (!image.dataUrl || status === 'ANALYZING') return
-    generate({ dataUrl: image.dataUrl, mode, detailLevel })
+  async function handleGenerate() {
+    if (!image.file || status === 'ANALYZING') return
+    try {
+      const compressed = await compressImage(image.file)
+      generate({ dataUrl: compressed, mode, detailLevel })
+    } catch {
+      generate({ dataUrl: image.dataUrl, mode, detailLevel })
+    }
   }
 
-  function handleRegenerate() {
-    if (!image.dataUrl || status === 'ANALYZING') return
-    regenerate({ dataUrl: image.dataUrl, mode, detailLevel })
+  async function handleRegenerate() {
+    if (!image.file || status === 'ANALYZING') return
+    try {
+      const compressed = await compressImage(image.file)
+      regenerate({ dataUrl: compressed, mode, detailLevel })
+    } catch {
+      regenerate({ dataUrl: image.dataUrl, mode, detailLevel })
+    }
   }
 
   function handleCopy() {
@@ -144,7 +154,7 @@ export default function App() {
                   <ProgressSteps stages={stages} activeStage={stage} />
                 )}
 
-                {(status === 'SUCCESS' || status === 'ERROR') && (
+                {(status === 'SUCCESS') && (
                   <>
                     <PromptResult
                       prompt={result?.prompt || ''}
