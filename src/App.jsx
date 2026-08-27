@@ -24,6 +24,7 @@ export default function App() {
     generate,
     regenerate,
     reset,
+    selectImage,
   } = useImagePrompt()
 
   const [image, setImage] = useState({ file: null, dataUrl: null })
@@ -42,6 +43,7 @@ export default function App() {
     try {
       const dataUrl = await fileToDataUrl(file)
       setImage({ file, dataUrl })
+      selectImage()
     } catch {
       setUploadError('Failed to read the image file. Please try another image.')
     }

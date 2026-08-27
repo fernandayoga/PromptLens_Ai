@@ -86,6 +86,13 @@ export function useImagePrompt() {
     setError(null)
   }
 
+  function selectImage() {
+    clearStageTimer()
+    setStatus(STATES.IMAGE_SELECTED)
+    setResult(null)
+    setError(null)
+  }
+
   function regenerate({ dataUrl, mode, detailLevel }) {
     setResult(null)
     generate({ dataUrl, mode, detailLevel })
@@ -104,5 +111,6 @@ export function useImagePrompt() {
     generate,
     regenerate,
     reset,
+    selectImage,
   }
 }
