@@ -84,9 +84,8 @@ export default function App() {
   }
 
   const isAnalyzing = status === 'ANALYZING'
-  const showGenerator =
-    status !== 'EMPTY' || !!image.dataUrl
   const showHowItWorks = status === 'EMPTY' || status === 'IMAGE_SELECTED'
+  const showTwoColumn = status === 'ANALYZING' || status === 'SUCCESS' || status === 'ERROR'
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -94,24 +93,8 @@ export default function App() {
       <main className="flex-1 w-full">
         <Hero />
 
-        {!showGenerator && (
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-8">
-            <div className="animate-fade-in">
-              <ImageUploader
-                onFileSelect={handleFileSelect}
-                disabled={isAnalyzing}
-              />
-              {uploadError && (
-                <p role="alert" className="mt-3 text-sm text-error">
-                  {uploadError}
-                </p>
-              )}
-            </div>
-          </section>
-        )}
-
         {showHowItWorks && (
-          <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 animate-fade-in">
+          <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-8 animate-fade-in">
             <div className="rounded-2xl border border-border bg-surface p-6 space-y-4 text-sm text-text-muted">
               <h2 className="text-base font-semibold text-text">How it works</h2>
               <ol className="grid sm:grid-cols-2 gap-x-8 gap-y-2 list-decimal list-inside">
@@ -127,7 +110,50 @@ export default function App() {
           </section>
         )}
 
-        {showGenerator && (
+        {!showTwoColumn && (
+          <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-16">
+            <div className="space-y-4 animate-fade-in">
+              {status === 'EMPTY' ? (
+                <>
+                  <ImageUploader
+                    onFileSelect={handleFileSelect}
+                    disabled={isAnalyzing}
+                  />
+                  {uploadError && (
+                    <p role="alert" className="mt-3 text-sm text-error">
+                      {uploadError}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <>
+                  <ImagePreview
+                    file={image.file}
+                    dataUrl={image.dataUrl}
+                    onRemove={handleRemoveImage}
+                    disabled={isAnalyzing}
+                  />
+                  <PromptSettings
+                    mode={mode}
+                    detailLevel={detailLevel}
+                    onModeChange={setMode}
+                    onDetailChange={setDetailLevel}
+                    modes={PROMPT_MODES}
+                    details={DETAIL_LEVELS}
+                    disabled={isAnalyzing}
+                  />
+                  <GenerateButton
+                    onClick={handleGenerate}
+                    disabled={!image.dataUrl || isAnalyzing}
+                    loading={isAnalyzing}
+                  />
+                </>
+              )}
+            </div>
+          </section>
+        )}
+
+        {showTwoColumn && (
           <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
             <div className="grid lg:grid-cols-2 gap-6 items-start">
               <div className="space-y-4">
@@ -158,7 +184,7 @@ export default function App() {
                   <ProgressSteps stages={stages} activeStage={stage} />
                 )}
 
-                {(status === 'SUCCESS') && (
+                {status === 'SUCCESS' && (
                   <>
                     <PromptResult
                       prompt={result?.prompt || ''}
@@ -169,14 +195,6 @@ export default function App() {
                     />
                     <AnalysisPanel analysis={result?.analysis || {}} />
                   </>
-                )}
-
-                {status === 'IMAGE_SELECTED' && (
-                  <div className="rounded-2xl border border-dashed border-border bg-surface p-6 text-sm text-text-muted">
-                    Configure your settings above, then click{' '}
-                    <span className="font-medium text-text">Generate Prompt</span> to analyze
-                    your reference image.
-                  </div>
                 )}
 
                 {status === 'ERROR' && (
