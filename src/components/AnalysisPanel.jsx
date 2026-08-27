@@ -16,7 +16,7 @@ export default function AnalysisPanel({ analysis = {} }) {
   if (items.length === 0) return null
 
   return (
-    <div className="rounded-2xl border border-border bg-surface overflow-hidden animate-fade-in">
+    <div className="rounded-2xl border border-primary/30 bg-surface overflow-hidden animate-fade-in">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -32,7 +32,7 @@ export default function AnalysisPanel({ analysis = {} }) {
           Visual Analysis
           <span className="text-xs font-normal text-text-muted">({items.length})</span>
         </span>
-        <span className="flex items-center gap-1.5 text-xs font-medium text-primary border border-primary/30 rounded-lg px-3 py-1.5">
+        <span className="flex items-center gap-1.5 text-xs font-medium text-primary">
           {open ? 'Hide' : 'Show'}
           <svg
             width="16"
