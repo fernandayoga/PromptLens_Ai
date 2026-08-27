@@ -22,7 +22,7 @@ export default function AnalysisPanel({ analysis = {} }) {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls="analysis-body"
-        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-surface-hover transition-colors"
+        className="w-full flex items-center justify-between px-5 py-4 text-left cursor-pointer hover:bg-surface-hover transition-colors"
       >
         <span className="flex items-center gap-2 text-sm font-semibold text-text">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary" aria-hidden="true">
@@ -32,20 +32,23 @@ export default function AnalysisPanel({ analysis = {} }) {
           Visual Analysis
           <span className="text-xs font-normal text-text-muted">({items.length})</span>
         </span>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={`text-text-muted transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-          aria-hidden="true"
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
+        <span className="flex items-center gap-1.5 text-xs text-text-muted">
+          {open ? 'Hide' : 'Show'}
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </span>
       </button>
 
        {open && (

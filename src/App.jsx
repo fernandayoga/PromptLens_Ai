@@ -168,10 +168,17 @@ export default function App() {
                 )}
 
                 {status === 'IMAGE_SELECTED' && (
-                  <div className="rounded-2xl border border-border bg-surface p-6 text-sm text-text-muted">
-                    Configure your settings, then click{' '}
-                    <span className="font-medium text-text">Generate Prompt</span> to analyze
-                    your reference image.
+                  <div className="rounded-2xl border border-border bg-surface p-6 space-y-4 text-sm text-text-muted">
+                    <h2 className="text-base font-semibold text-text">How it works</h2>
+                    <ol className="space-y-2 list-decimal list-inside">
+                      <li>Upload a reference image (JPG, PNG, or WEBP, max 10 MB).</li>
+                      <li>Choose a prompt mode and detail level.</li>
+                      <li>Click Generate and wait for the AI analysis.</li>
+                      <li>Copy the generated prompt and use it anywhere.</li>
+                    </ol>
+                    <p className="text-xs leading-relaxed">
+                      Your image is used only for AI analysis and is not stored by this application.
+                    </p>
                   </div>
                 )}
 
