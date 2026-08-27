@@ -31,6 +31,7 @@ export default function App() {
   const [uploadError, setUploadError] = useState(null)
   const [mode, setMode] = useState('general')
   const [detailLevel, setDetailLevel] = useState('detailed')
+  const [scrollY, setScrollY] = useState(0)
 
   async function handleFileSelect(file) {
     setUploadError(null)
@@ -57,6 +58,8 @@ export default function App() {
 
   async function handleGenerate() {
     if (!image.file || status === 'ANALYZING') return
+    setScrollY(window.scrollY)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     try {
       const compressed = await compressImage(image.file)
       generate({ dataUrl: compressed, mode, detailLevel })
