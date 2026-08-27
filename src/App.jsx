@@ -98,44 +98,61 @@ export default function App() {
         <Hero />
 
         {!showTwoColumn && (
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-16">
-            <div className="space-y-4 animate-fade-in">
-              {status === 'EMPTY' ? (
-                <>
-                  <ImageUploader
-                    onFileSelect={handleFileSelect}
-                    disabled={isAnalyzing}
-                  />
-                  {uploadError && (
-                    <p role="alert" className="mt-3 text-sm text-error">
-                      {uploadError}
-                    </p>
-                  )}
-                </>
-              ) : (
-                <>
-                  <ImagePreview
-                    file={image.file}
-                    dataUrl={image.dataUrl}
-                    onRemove={handleRemoveImage}
-                    disabled={isAnalyzing}
-                  />
-                  <PromptSettings
-                    mode={mode}
-                    detailLevel={detailLevel}
-                    onModeChange={setMode}
-                    onDetailChange={setDetailLevel}
-                    modes={PROMPT_MODES}
-                    details={DETAIL_LEVELS}
-                    disabled={isAnalyzing}
-                  />
-                  <GenerateButton
-                    onClick={handleGenerate}
-                    disabled={!image.dataUrl || isAnalyzing}
-                    loading={isAnalyzing}
-                  />
-                </>
-              )}
+          <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              <div className="space-y-4 animate-fade-in">
+                {status === 'EMPTY' ? (
+                  <>
+                    <ImageUploader
+                      onFileSelect={handleFileSelect}
+                      disabled={isAnalyzing}
+                    />
+                    {uploadError && (
+                      <p role="alert" className="mt-3 text-sm text-error">
+                        {uploadError}
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <ImagePreview
+                      file={image.file}
+                      dataUrl={image.dataUrl}
+                      onRemove={handleRemoveImage}
+                      disabled={isAnalyzing}
+                    />
+                    <PromptSettings
+                      mode={mode}
+                      detailLevel={detailLevel}
+                      onModeChange={setMode}
+                      onDetailChange={setDetailLevel}
+                      modes={PROMPT_MODES}
+                      details={DETAIL_LEVELS}
+                      disabled={isAnalyzing}
+                    />
+                    <GenerateButton
+                      onClick={handleGenerate}
+                      disabled={!image.dataUrl || isAnalyzing}
+                      loading={isAnalyzing}
+                    />
+                  </>
+                )}
+              </div>
+
+              <aside className="space-y-4 text-sm text-text-muted">
+                <div className="rounded-2xl border border-border bg-surface p-6 space-y-4">
+                  <h2 className="text-base font-semibold text-text">How it works</h2>
+                  <ol className="space-y-2 list-decimal list-inside">
+                    <li>Upload a reference image (JPG, PNG, or WEBP, max 10 MB).</li>
+                    <li>Choose a prompt mode and detail level.</li>
+                    <li>Click Generate and wait for the AI analysis.</li>
+                    <li>Copy the generated prompt and use it anywhere.</li>
+                  </ol>
+                  <p className="text-xs leading-relaxed">
+                    Your image is used only for AI analysis and is not stored by this application.
+                  </p>
+                </div>
+              </aside>
             </div>
           </section>
         )}
