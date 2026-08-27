@@ -108,13 +108,10 @@ export default function App() {
                 )}
               </div>
               <aside className="lg:col-span-2 space-y-4 text-sm text-text-muted">
-                <h2 className="text-base font-semibold text-text">How it works</h2>
-                <ol className="space-y-2 list-decimal list-inside">
-                  <li>Upload a reference image (JPG, PNG, or WEBP, max 10 MB).</li>
-                  <li>Choose a prompt mode and detail level.</li>
-                  <li>Click Generate and wait for the AI analysis.</li>
-                  <li>Copy the generated prompt and use it anywhere.</li>
-                </ol>
+                <h2 className="text-base font-semibold text-text">Ready to get started?</h2>
+                <p className="leading-relaxed">
+                  Upload your reference image to begin. The interface will guide you through selecting your prompt style and detail level.
+                </p>
                 <p className="text-xs leading-relaxed">
                   Your image is used only for AI analysis and is not stored by this application.
                 </p>
