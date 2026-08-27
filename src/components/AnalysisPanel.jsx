@@ -32,7 +32,7 @@ export default function AnalysisPanel({ analysis = {} }) {
           Visual Analysis
           <span className="text-xs font-normal text-text-muted">({items.length})</span>
         </span>
-        <span className="flex items-center gap-1.5 text-xs text-text-muted">
+        <span className="flex items-center gap-1.5 text-xs font-medium text-primary border border-primary/30 rounded-lg px-3 py-1.5">
           {open ? 'Hide' : 'Show'}
           <svg
             width="16"
